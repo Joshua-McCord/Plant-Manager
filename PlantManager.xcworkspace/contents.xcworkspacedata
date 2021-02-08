@@ -7,7 +7,4 @@
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "group:/Users/joshcolemccord/Documents/School/Spring 2021/CS 4251 Mobile Apps &amp; Srvces/Projects/PlantManager/PlantManager/apiKey.swift">
-   </FileRef>
 </Workspace>

@@ -13,6 +13,9 @@ class RegistrationViewModel: ObservableObject {
     @Published var password:String? = nil
     @Published var registrationComplete:Bool = false
     
+    let apiKey = key()
+    
+    
     func attemptRegistration() {
         struct Login: Encodable {
             let email: String
@@ -22,7 +25,7 @@ class RegistrationViewModel: ObservableObject {
         
         let login = Login(email: username ?? "nil", password: password ?? "nil")
         
-        AF.request("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCFddJfh8J5VIdborNrqsyHbcIdXd2hDYc",
+        AF.request("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=\(apiKey.key)",
                    method: .post,
                    parameters: login,
                    encoder: URLEncodedFormParameterEncoder.default)
@@ -40,11 +43,13 @@ class RegistrationViewModel: ObservableObject {
                             print("error with response status: \(status)")
                     }
                 }
+                
                 //to get JSON return value
                 if let result = response.data {
                     //let JSON = result as! NSDictionary
                     print("result = \(result)")
                 }
+                
                 
             }
     }

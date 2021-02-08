@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct PlantSearchView: View {
-    let array = ["Peter", "Paul", "Mary", "Anna-Lena", "George", "John", "Greg", "Thomas", "Robert", "Bernie", "Mike", "Benno", "Hugo", "Miles", "Michael", "Mikel", "Tim", "Tom", "Lottie", "Lorrie", "Barbara"]
+    let array = [""]
     @State private var searchText = ""
     @State private var showCancelButton: Bool = false
     

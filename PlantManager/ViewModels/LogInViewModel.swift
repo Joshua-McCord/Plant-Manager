@@ -28,7 +28,7 @@ class LogInViewModel: ObservableObject{
         
         
         
-        AF.request("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=\(ApiKey().key)",
+        AF.request("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCFddJfh8J5VIdborNrqsyHbcIdXd2hDYc",
                    method: .post,
                    parameters: login,
                    encoder: URLEncodedFormParameterEncoder.default)
