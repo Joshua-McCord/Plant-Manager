@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:PlantManager.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Pods/Pods.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/joshcolemccord/Documents/School/Spring 2021/CS 4251 Mobile Apps &amp; Srvces/Projects/PlantManager/PlantManager/apiKey.swift">
+   </FileRef>
+</Workspace>
