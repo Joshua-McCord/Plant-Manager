@@ -10,13 +10,25 @@ import SwiftUI
 
 struct MainView: View {
     @ObservedObject var roomVM = RoomViewModel()
+    
+    private var symbols = ["keyboard", "hifispeaker.fill", "printer.fill", "tv.fill", "desktopcomputer", "headphones", "tv.music.note", "mic", "plus.bubble", "video"]
+    
+    private var colors: [Color] = [.yellow, .purple, .green]
+    
+    private var gridItemLayout = [GridItem(.flexible()), GridItem(.flexible())]
 
     var body: some View {
         
-        var plants = roomVM.currPlants
+        let plants = roomVM.currPlants
             ZStack {
                 VStack {
+                    Text("Bedroom")
+                        .font(Font.custom("Futura-Medium", size: 64.0))
+                        .foregroundColor(.black)
                     //List(plants, rowContent: PlantCard.init)
+                    
+                    /*
+                    PlantCard(plant: Plant(uid: "test", name: "Golden Pothos", waterAt: "test", treflePlantId: "test"))
                     List {
                         ForEach(plants, id: \.self) { plant in
                             NavigationLink(destination: DetailView(plant: plant)) {
@@ -25,7 +37,16 @@ struct MainView: View {
                             
                         }
                     }
-                    
+                    */
+                    ScrollView {
+                        LazyVGrid(columns: gridItemLayout, spacing: 20) {
+                            ForEach(plants, id: \.self) { plant in
+                                NavigationLink(destination: DetailView(plant: plant)) {
+                                    PlantCard(plant: plant)
+                                }
+                            }
+                        }
+                    }
                     
                     Spacer()
                     NavigationLink(destination: PlantSearchView()) {
@@ -41,7 +62,7 @@ struct MainView: View {
                             .padding(.horizontal, 40)
                     }
                 }
-        }
+            }
     }
         
 }

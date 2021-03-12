@@ -381,6 +381,7 @@ PODS:
     - SDWebImage/Core (= 5.10.4)
   - SDWebImage/Core (5.10.4)
   - SwiftyJSON (4.3.0)
+  - TrefleSwiftSDK (0.0.4)
 
 DEPENDENCIES:
   - Alamofire (~> 5.2)
@@ -388,6 +389,7 @@ DEPENDENCIES:
   - Firebase/Firestore
   - FirebaseUI
   - SwiftyJSON (~> 4.0)
+  - TrefleSwiftSDK
 
 SPEC REPOS:
   trunk:
@@ -417,6 +419,7 @@ SPEC REPOS:
     - PromisesObjC
     - SDWebImage
     - SwiftyJSON
+    - TrefleSwiftSDK
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
@@ -445,7 +448,8 @@ SPEC CHECKSUMS:
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   SDWebImage: c666b97e1fa9c64b4909816a903322018f0a9c84
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
+  TrefleSwiftSDK: 6d789b471e4fb5aec43fbc74ff4a45109ebe0ca0
 
-PODFILE CHECKSUM: 9a938c96998eae6b2bcb4461ab209bd031a0620d
+PODFILE CHECKSUM: 8eb862658412813107f98d5c5168cd5d0e15b3f8
 
 COCOAPODS: 1.10.1
