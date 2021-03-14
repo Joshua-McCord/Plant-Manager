@@ -14,20 +14,29 @@ struct PlantCard: View {
     var body: some View {
         VStack(alignment: .center) {
             ZStack {
-                //Rectangle()
-                //.fill(Color.init(hex: "ECBEB4"))
-                //.frame(width: 200, height: 200)
-                Text(plant.name! ?? "temp_name")
-                    .fontWeight(.semibold)
-                    .font(.title)
-                    .foregroundColor(.white)
-            }
-            
-        }
-        .frame(maxWidth: .infinity, alignment: .center)
-        .background(Color.init(hex: "ECBEB4"))
-        .modifier(CardModifier())
-        .padding(.all, 10)
+                Image("golden-pothos")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 150, height: 170, alignment: .center)
+                    .clipShape(Rectangle())
+                    .cornerRadius(14)
+                
+                ZStack {
+                    Rectangle()
+                        .fill(Color.init(hex: "ECBEB4"))
+                        .frame(width: 150, height: 65, alignment: .bottom)
+                        .cornerRadius(14)
+                    
+                    Text(plant.name ?? "Plant")
+                        .font(Font.custom("SFProText-Regular", size: 18.0))
+                        .foregroundColor(.black)
+                    
+                }.offset(x: 0, y: 60)
+                
+                
+            }.padding()
+        }.modifier(CardModifier())
+
     }
 }
 
@@ -35,8 +44,8 @@ struct PlantCard: View {
 struct CardModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .cornerRadius(20)
-            .shadow(color: Color.black.opacity(0.2), radius: 20, x: 0, y: 0)
+            .cornerRadius(14)
+            .shadow(color: Color.gray.opacity(0.5), radius: 5, x: 4, y: 8)
     }
     
 }
@@ -91,4 +100,5 @@ extension View {
         return modifier(ResignKeyboardOnDragGesture())
     }
 }
+
 
