@@ -22,26 +22,11 @@ struct Plant: Hashable, Decodable, Encodable {
 }
 
 
-struct PlantPost: Encodable, Decodable {
-    let name: String?
-    let waterAt: String?
-    let treflePlantId: String?
+struct PlantPost: Encodable {
+    let name: String
+    let waterAt: String
+    let roomId: String
+    let treflePlantId: String
 }
-
-/*
-extension PlantGet {
-    enum CodingKeys: String, CodingKey {
-        case id = "id"
-        case data = "data"
-    }
-}
-extension Plant {
-    enum CodingKeys: String, CodingKey {
-        case name = "name"
-        case treflePlantId = "treflePlantId"
-        case
-    }
-}
- */
 
 
