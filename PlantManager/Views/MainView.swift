@@ -62,7 +62,9 @@ struct MainView: View {
                             .padding(.horizontal, 40)
                     }
                 }
-            }
+            }.onAppear(perform: {
+                roomVM.getData()
+            })
     }
         
 }

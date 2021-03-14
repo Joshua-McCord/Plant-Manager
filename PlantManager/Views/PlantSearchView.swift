@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct PlantSearchView: View {
-    let array = [""]
+    let array = ["test", "test2"]
     @State private var searchText = ""
     @State private var showCancelButton: Bool = false
     
@@ -19,7 +19,7 @@ struct PlantSearchView: View {
     var body: some View {
         
         let vm = PlantSearchViewModel()
-        let test = vm.getJson()
+        //let test = vm.getJson()
         
         NavigationView {
             VStack {
@@ -31,7 +31,7 @@ struct PlantSearchView: View {
                         TextField("search", text: $searchText, onEditingChanged: { isEditing in
                             self.showCancelButton = true
                         }, onCommit: {
-                            print("onCommit")
+                            vm.addPlant(plant: searchText)
                         }).foregroundColor(.primary)
                         
                         Button(action: {
@@ -67,5 +67,12 @@ struct PlantSearchView: View {
                 .resignKeyboardOnDragGesture()
             }
         }
+    }
+}
+
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        PlantSearchView()
     }
 }

@@ -16,10 +16,6 @@ class RoomViewModel : ObservableObject {
     //Reactive UI
     @Published var currPlants: [Plant] = []
     
-    init() {
-        getData()
-    }
-    
     
     func getCurrPlants() -> [Plant] {
         return currPlants
@@ -32,7 +28,7 @@ class RoomViewModel : ObservableObject {
         let url = URL(string: "https://us-central1-house-plants-api.cloudfunctions.net/webApi/api/v1/plants")!
         
         // prepare json data
-        let post = PlantPost(name: "Ivy", waterAt: "1:00" ,treflePlantId: "123456")
+        let post = PlantPost(name: "Ivy", waterAt: "1:00", roomId: "123" ,treflePlantId: "123456")
         //let json: PlantPost = post
         
         //let jsonData = try? JSONSerialization.data(withJSONObject: json)
@@ -96,6 +92,7 @@ class RoomViewModel : ObservableObject {
                 }
                 switch response.result {
                     case .success(let value) :
+                        self.currPlants.removeAll()
                         //print(JSON(value))
                         let json = JSON(value)
                         self.parseJSON(json: json)
