@@ -1,0 +1,6 @@
+framework module TrefleSwiftSDK {
+  umbrella header "TrefleSwiftSDK-umbrella.h"
+
+  export *
+  module * { export * }
+}
