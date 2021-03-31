@@ -17,7 +17,6 @@ class LogInViewModel: ObservableObject{
     @Published var isValid:Bool = false
     
     func attemptLogIn() {
-        //isValid = true;
         struct Login: Encodable {
             let email: String
             let password: String
@@ -33,7 +32,6 @@ class LogInViewModel: ObservableObject{
                    parameters: login,
                    encoder: URLEncodedFormParameterEncoder.default)
             .cURLDescription { description in
-                //print(description)
             }.responseJSON { response in
                 print(response)
                 //to get status code

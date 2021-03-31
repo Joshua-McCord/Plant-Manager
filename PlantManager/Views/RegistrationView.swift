@@ -15,7 +15,6 @@ struct RegistrationView: View {
             ZStack {
                 VStack() {
                     Text("Register")
-                    //.padding(.bottom, .0)
                     
                     VStack(alignment: .leading, spacing: 15) {
                         
@@ -45,8 +44,6 @@ struct RegistrationView: View {
                             .cornerRadius(40)
                             .padding(.horizontal, 40)
                     })
-                    //.fontWeight(.semibold)
-                    //.font(.title)
                     .frame(minWidth: 0, maxWidth: .infinity)
                     .padding()
                     .foregroundColor(.white)

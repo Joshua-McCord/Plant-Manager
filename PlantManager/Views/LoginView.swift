@@ -16,8 +16,6 @@ struct LoginView: View {
             ZStack {
                 VStack() {
                     Text("Plant Manager")
-                    //.padding(.bottom, .0)
-                
                     VStack(alignment: .leading, spacing: 15) {
                     
                         TextField("username", text: Binding<String>(
@@ -33,19 +31,6 @@ struct LoginView: View {
                             .cornerRadius(20.0)
                     }.padding([.leading, .trailing], 27.5)
                     
-                    /*
-                    NavigationLink(destination: MainView()) {
-                        Text("Sign In")
-                            .fontWeight(.semibold)
-                            .font(.title)
-                            .frame(minWidth: 0, maxWidth: .infinity)
-                            .padding()
-                            .foregroundColor(.white)
-                            .background(Color.init(hex: "ECBEB4"))
-                            .cornerRadius(40)
-                            .padding(.horizontal, 40)
-                    }
-                     */
                     Button(action: {
                         viewModel.attemptLogIn()
                     }, label: {
@@ -59,8 +44,6 @@ struct LoginView: View {
                             .cornerRadius(40)
                             .padding(.horizontal, 40)
                     })
-                    //.fontWeight(.semibold)
-                    //.font(.title)
                     .frame(minWidth: 0, maxWidth: .infinity)
                     .padding()
                     .foregroundColor(.white)
@@ -82,8 +65,6 @@ struct LoginView: View {
                             .padding(.horizontal, 40)
                     }
                 }
-                    
-   
             }
         }
     }

@@ -11,10 +11,6 @@ import SwiftUI
 struct MainView: View {
     @ObservedObject var roomVM = RoomViewModel()
     
-    private var symbols = ["keyboard", "hifispeaker.fill", "printer.fill", "tv.fill", "desktopcomputer", "headphones", "tv.music.note", "mic", "plus.bubble", "video"]
-    
-    private var colors: [Color] = [.yellow, .purple, .green]
-    
     private var gridItemLayout = [GridItem(.flexible()), GridItem(.flexible())]
 
     var body: some View {

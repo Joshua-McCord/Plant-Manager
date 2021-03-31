@@ -30,7 +30,6 @@ class RegistrationViewModel: ObservableObject {
                    parameters: login,
                    encoder: URLEncodedFormParameterEncoder.default)
             .cURLDescription { description in
-                //print(description)
             }.responseJSON { response in
                 print(response)
                 //to get status code
@@ -46,7 +45,6 @@ class RegistrationViewModel: ObservableObject {
                 
                 //to get JSON return value
                 if let result = response.data {
-                    //let JSON = result as! NSDictionary
                     print("result = \(result)")
                 }
                 

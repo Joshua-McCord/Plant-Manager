@@ -55,13 +55,12 @@ struct PlantSearchView: View {
                     }
                 }
                 .padding(.horizontal)
-                .navigationBarHidden(showCancelButton) // .animation(.default) // animation does not work properly
+                .navigationBarHidden(showCancelButton)
                 
                 
                 // Make each plant in search result list clickable
                 // and add it to the users plants.
                 List {
-                    // Filtered list of names
                     ForEach(searchResults, id:\.self) {
                         searchResult in //Text(searchResult)
                         Button(action: {
