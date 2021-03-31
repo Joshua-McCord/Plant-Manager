@@ -13,14 +13,57 @@ import Combine
 
 class PlantSearchViewModel : ObservableObject {
     
-    @Published var searchList: [String] = []
+    @Published var searchList: [PlantSearchResult] = []
     
-    func getSearchResults() -> [String] {
+    func getSearchResults() -> [PlantSearchResult] {
         return searchList
     }
     
-    func addPlant(plant: String)  {
-        let par = ["q" : plant]
+    // Add plant to user's database
+    func addPlant(plantSearchResult: PlantSearchResult)  {
+        let tmpToken: String? = User.sharedInstance.idToken
+        guard let token = tmpToken else {return }
+        let url = URL(string: "https://us-central1-house-plants-api.cloudfunctions.net/webApi/api/v1/plants")!
+        
+        // prepare json data
+        let post = PlantPost(name: plantSearchResult.plantName,
+                             waterAt: "1:00",
+                             roomId: "123" ,
+                             treflePlantId: plantSearchResult.treflePlantID)
+        
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .prettyPrinted
+        let data = try! encoder.encode(post)
+        print(String(data: data, encoding: .utf8)!)
+        
+        // create post request
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        
+        // insert json data to the request
+        request.httpBody = data
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.setValue( "Bearer \(token)", forHTTPHeaderField: "Authorization")
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let responseJSON = responseJSON as? [String: Any] {
+                debugPrint(responseJSON)
+            }
+        }
+        task.resume()
+    }
+    
+    
+    
+    
+    func searchForPlants(plantName: String) {
+        let par = ["q" : plantName]
         
         AF.request("https://trefle.io/api/v1/plants/search?token=_SsZd0R46iCZ5QF9zHP9eyeONarcvEvU5CsO-fOfRIg",
                    method: .get,
@@ -43,46 +86,45 @@ class PlantSearchViewModel : ObservableObject {
                     case .success(let value) :
                         //print(JSON(value))
                         let json = JSON(value)
-                        self.parseJSON(json: json)
+                        self.parseSearchResultJSON(json: json)
                         
                     case .failure(_):
                         print("failure")
                 }
-                
             }
     }
     
-    func parseJSON(json: JSON) {
-        var plantId: Int = -1
+    // Parse the search result from the Trefle Database and add to SearchResult list
+    func parseSearchResultJSON(json: JSON) {
+        
         if json["data"].array!.count != 0 {
             //print("Plant ID > \(json["data"][0]["id"])")
-            plantId = json["data"][0]["id"].intValue
+            //plantId = json["data"][0]["id"].intValue
             //print("Parsing > \(json["data"][0]["common_name"].string ?? "Common Name not present")")
             let numOfResults = json["meta"]["total"].intValue
             self.searchList .removeAll();
             for i in 0..<numOfResults {
                 //print("Parsing > \(json["data"][i]["common_name"].string ?? "Common Name not present")")
-                self.searchList.append(json["data"][i]["common_name"].string ?? "Common Name not present")
+                if(json["data"][i]["common_name"].string != nil) {
+                    self.searchList.append(
+                        PlantSearchResult(plantName: json["data"][i]["common_name"].stringValue,
+                                          treflePlantID: String(json["data"][i]["id"].intValue)))
+                }
             }
-            print(searchList)
+            //print(searchList)
         }
-        if(plantId != -1) {
-            print(plantId)
-            //addData(trefleId: String(plantId))
-        }
-        else { print("failed")}
     }
     
-    func addData(trefleId: String) {
+    func addData(plantSearchResult: PlantSearchResult) {
         let tmpToken: String? = User.sharedInstance.idToken
         guard let token = tmpToken else {return }
         let url = URL(string: "https://us-central1-house-plants-api.cloudfunctions.net/webApi/api/v1/plants")!
         
         // prepare json data
-        let post = PlantPost(name: "English Ivy", waterAt: "1:00",roomId: "123" ,treflePlantId: trefleId)
-        //let json: PlantPost = post
-        
-        //let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        let post = PlantPost(name: plantSearchResult.plantName,
+                             waterAt: "1:00",
+                             roomId: "123" ,
+                             treflePlantId: plantSearchResult.treflePlantID)
         
         let encoder = JSONEncoder()
         encoder.outputFormatting = .prettyPrinted
@@ -112,6 +154,16 @@ class PlantSearchViewModel : ObservableObject {
             }
         }
         task.resume()
+    }
+    
+}
+
+struct PlantSearchResult : Hashable {
+    let plantName: String
+    let treflePlantID: String
+    init (plantName: String, treflePlantID: String) {
+        self.plantName = plantName
+        self.treflePlantID = treflePlantID
     }
     
 }

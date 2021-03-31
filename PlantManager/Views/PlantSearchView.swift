@@ -25,11 +25,13 @@ struct PlantSearchView: View {
                     HStack {
                         Image(systemName: "magnifyingglass")
                         
+                        
+                        // When pressing enter, queries the viewmodel to
+                        // search Trefle Database for keyword
                         TextField("search", text: $searchText, onEditingChanged: { isEditing in
                             self.showCancelButton = true
                         }, onCommit: {
-                            searchVM.addPlant(plant: searchText)
-                            print("View search results > \(searchVM.getSearchResults())")
+                            searchVM.searchForPlants(plantName: searchText)
                         }).foregroundColor(.primary)
                         
                         Button(action: {
@@ -55,10 +57,18 @@ struct PlantSearchView: View {
                 .padding(.horizontal)
                 .navigationBarHidden(showCancelButton) // .animation(.default) // animation does not work properly
                 
+                
+                // Make each plant in search result list clickable
+                // and add it to the users plants.
                 List {
                     // Filtered list of names
                     ForEach(searchResults, id:\.self) {
-                        searchResult in Text(searchResult)
+                        searchResult in //Text(searchResult)
+                        Button(action: {
+                            searchVM.addPlant(plantSearchResult: searchResult)
+                        }) {
+                            Text(searchResult.plantName)
+                        }
                     }
                 }
                 .navigationBarTitle(Text("Search"))
@@ -67,6 +77,7 @@ struct PlantSearchView: View {
         }
     }
 }
+
 
 
 struct ContentView_Previews: PreviewProvider {
