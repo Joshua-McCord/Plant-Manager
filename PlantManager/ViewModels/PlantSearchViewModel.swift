@@ -8,12 +8,15 @@
 import Foundation
 import Alamofire
 import SwiftyJSON
+import Combine
 
 
 class PlantSearchViewModel : ObservableObject {
     
-    init () {
-        
+    @Published var searchList: [String] = []
+    
+    func getSearchResults() -> [String] {
+        return searchList
     }
     
     func addPlant(plant: String)  {
@@ -54,11 +57,18 @@ class PlantSearchViewModel : ObservableObject {
         if json["data"].array!.count != 0 {
             //print("Plant ID > \(json["data"][0]["id"])")
             plantId = json["data"][0]["id"].intValue
-            
+            //print("Parsing > \(json["data"][0]["common_name"].string ?? "Common Name not present")")
+            let numOfResults = json["meta"]["total"].intValue
+            self.searchList .removeAll();
+            for i in 0..<numOfResults {
+                //print("Parsing > \(json["data"][i]["common_name"].string ?? "Common Name not present")")
+                self.searchList.append(json["data"][i]["common_name"].string ?? "Common Name not present")
+            }
+            print(searchList)
         }
         if(plantId != -1) {
             print(plantId)
-            addData(trefleId: String(plantId))
+            //addData(trefleId: String(plantId))
         }
         else { print("failed")}
     }
@@ -69,7 +79,7 @@ class PlantSearchViewModel : ObservableObject {
         let url = URL(string: "https://us-central1-house-plants-api.cloudfunctions.net/webApi/api/v1/plants")!
         
         // prepare json data
-        let post = PlantPost(name: "Ivy 4", waterAt: "1:00",roomId: "123" ,treflePlantId: trefleId)
+        let post = PlantPost(name: "English Ivy", waterAt: "1:00",roomId: "123" ,treflePlantId: trefleId)
         //let json: PlantPost = post
         
         //let jsonData = try? JSONSerialization.data(withJSONObject: json)
@@ -104,4 +114,8 @@ class PlantSearchViewModel : ObservableObject {
         task.resume()
     }
     
+}
+
+class SearchList: ObservableObject {
+    @Published var searchList = ["test"]
 }

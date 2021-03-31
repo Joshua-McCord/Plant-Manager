@@ -25,19 +25,6 @@ struct MainView: View {
                     Text("Bedroom")
                         .font(Font.custom("Futura-Medium", size: 64.0))
                         .foregroundColor(.black)
-                    //List(plants, rowContent: PlantCard.init)
-                    
-                    /*
-                    PlantCard(plant: Plant(uid: "test", name: "Golden Pothos", waterAt: "test", treflePlantId: "test"))
-                    List {
-                        ForEach(plants, id: \.self) { plant in
-                            NavigationLink(destination: DetailView(plant: plant)) {
-                                PlantCard(plant: plant)
-                            }
-                            
-                        }
-                    }
-                    */
                     ScrollView {
                         LazyVGrid(columns: gridItemLayout, spacing: 20) {
                             ForEach(plants, id: \.self) { plant in

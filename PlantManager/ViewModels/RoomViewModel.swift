@@ -28,7 +28,7 @@ class RoomViewModel : ObservableObject {
         let url = URL(string: "https://us-central1-house-plants-api.cloudfunctions.net/webApi/api/v1/plants")!
         
         // prepare json data
-        let post = PlantPost(name: "Ivy", waterAt: "1:00", roomId: "123" ,treflePlantId: "123456")
+        let post = PlantPost(name: "English Ivy", waterAt: "1:00", roomId: "123" ,treflePlantId: "123456")
         //let json: PlantPost = post
         
         //let jsonData = try? JSONSerialization.data(withJSONObject: json)

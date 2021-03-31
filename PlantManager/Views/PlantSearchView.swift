@@ -7,20 +7,17 @@
 
 import Foundation
 import SwiftUI
+import Combine
 
 struct PlantSearchView: View {
-    let array = ["test", "test2"]
     @State private var searchText = ""
     @State private var showCancelButton: Bool = false
     
-    
+    @ObservedObject var searchVM = PlantSearchViewModel()
     
     
     var body: some View {
-        
-        let vm = PlantSearchViewModel()
-        //let test = vm.getJson()
-        
+        let searchResults = searchVM.searchList
         NavigationView {
             VStack {
                 // Search view
@@ -31,7 +28,8 @@ struct PlantSearchView: View {
                         TextField("search", text: $searchText, onEditingChanged: { isEditing in
                             self.showCancelButton = true
                         }, onCommit: {
-                            vm.addPlant(plant: searchText)
+                            searchVM.addPlant(plant: searchText)
+                            print("View search results > \(searchVM.getSearchResults())")
                         }).foregroundColor(.primary)
                         
                         Button(action: {
@@ -59,8 +57,8 @@ struct PlantSearchView: View {
                 
                 List {
                     // Filtered list of names
-                    ForEach(array.filter{$0.hasPrefix(searchText) || searchText == ""}, id:\.self) {
-                        searchText in Text(searchText)
+                    ForEach(searchResults, id:\.self) {
+                        searchResult in Text(searchResult)
                     }
                 }
                 .navigationBarTitle(Text("Search"))
