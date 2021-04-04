@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3DE11EE1776AE1E21FD91C76 /* Pods_PlantManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A890B73119FAD90B318E9D65 /* Pods_PlantManager.framework */; };
+		4C8EB67E261919E9008FCDED /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8EB67D261919E9008FCDED /* AccountView.swift */; };
 		8900440625FBFA7A00ADC2AB /* PlantManagerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8900440525FBFA7A00ADC2AB /* PlantManagerApp.swift */; };
 		8905348E25CA513B00713D86 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8905348D25CA513B00713D86 /* ContentView.swift */; };
 		8905349025CA513C00713D86 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8905348F25CA513C00713D86 /* Assets.xcassets */; };
@@ -29,6 +30,7 @@
 
 /* Begin PBXFileReference section */
 		2C72E8A29C16035822988946 /* Pods-PlantManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlantManager.release.xcconfig"; path = "Target Support Files/Pods-PlantManager/Pods-PlantManager.release.xcconfig"; sourceTree = "<group>"; };
+		4C8EB67D261919E9008FCDED /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		8900440525FBFA7A00ADC2AB /* PlantManagerApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlantManagerApp.swift; path = ViewModels/PlantManagerApp.swift; sourceTree = "<group>"; };
 		8905348825CA513B00713D86 /* PlantManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlantManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8905348D25CA513B00713D86 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 				89F7E5F025CD02DA00E9EA44 /* PlantSearchView.swift */,
 				89F7E5F325CD031A00E9EA44 /* AuxilleryViews.swift */,
 				89C7386025CE11DE00BAAF14 /* RegistrationView.swift */,
+				4C8EB67D261919E9008FCDED /* AccountView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -315,6 +318,7 @@
 				89F7E5EB25CD02AF00E9EA44 /* LoginView.swift in Sources */,
 				8900440625FBFA7A00ADC2AB /* PlantManagerApp.swift in Sources */,
 				89C7386425CE163700BAAF14 /* RegistrationViewModel.swift in Sources */,
+				4C8EB67E261919E9008FCDED /* AccountView.swift in Sources */,
 				89C7386125CE11DE00BAAF14 /* RegistrationView.swift in Sources */,
 				8939132125D1A8A2007769DD /* key.swift in Sources */,
 				89F7E5EE25CD02BC00E9EA44 /* MainView.swift in Sources */,

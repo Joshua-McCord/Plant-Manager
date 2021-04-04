@@ -51,3 +51,11 @@ struct MainView: View {
     }
         
 }
+
+#if DEBUG
+struct MainPreview: PreviewProvider {
+    static var previews: some View {
+        MainView()
+    }
+}
+#endif

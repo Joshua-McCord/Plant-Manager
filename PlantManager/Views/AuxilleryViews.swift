@@ -101,4 +101,33 @@ extension View {
     }
 }
 
+struct ToolbarView: View {
+    var title: String
+    
+    var body: some View {
+        VStack {
+            Text(title)
+                .font(Font.custom("Futura-Medium", size: 64.0))
+                .padding(1)
+            Capsule()
+                .fill(Color("Primary"))
+                .frame(width: 130, height: 12)
+        }
+    }
+}
 
+struct LongGreenButton: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration
+            .label
+            .padding(.horizontal)
+            .padding(.vertical, 8)
+            .font(Font.custom("Futura-medium", size: 20.0))
+            .foregroundColor(.white)
+            .background(
+                RoundedRectangle(cornerRadius: 14)
+                    .fill(Color("Accent"))
+            )
+        
+    }
+}
