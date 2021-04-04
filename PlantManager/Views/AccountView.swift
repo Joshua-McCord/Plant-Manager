@@ -134,6 +134,10 @@ struct AccountView: View {
     @State var selection: Int = 0
     private let items: [String] = ["Sign In", "Register"]
     
+    // prevent creating a new view + view model every time tab changes
+    private var loginView = LoginView()
+    private var registrationView = RegistrationView()
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -142,9 +146,17 @@ struct AccountView: View {
                 SegmentedPicker(items: self.items, selection: self.$selection)
                     .padding(.horizontal, 80)
                     .padding(.vertical, 20)
-                LoginView()
-                    .padding(.top, 20)
-                    .padding(.horizontal, 40)
+                
+                if selection == 0 {
+                    loginView
+                        .padding(.top, 20)
+                        .padding(.horizontal, 40)
+                } else {
+                    registrationView
+                        .padding(.top, 20)
+                        .padding(.horizontal, 40)
+                }
+                
                 GeometryReader { geometry in
                     Image("background")
                         .resizable()
