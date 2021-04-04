@@ -161,7 +161,6 @@ struct AccountView: View {
                     Image("background")
                         .resizable()
                         .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
-                        // .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .center)
                         .clipped()
                 }.ignoresSafeArea()
                 .padding(.top, 50)

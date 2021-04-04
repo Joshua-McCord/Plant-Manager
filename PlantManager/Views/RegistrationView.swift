@@ -42,30 +42,9 @@ struct RegistrationView: View {
                 viewModel.attemptRegistration()
             }.buttonStyle(LongGreenButton())
             
-            NavigationLink(destination: MainView(), isActive: $viewModel.registrationComplete) { EmptyView() }
+            NavigationLink(destination: AboutUsView(), isActive: $viewModel.registrationComplete) { EmptyView() }
         }
     }
-//            Button(action: {
-//                viewModel.attemptRegistration()
-//            }, label: {
-//                Text("Register")
-//                    .fontWeight(.semibold)
-//                    .font(.title)
-//                    .frame(minWidth: 0, maxWidth: .infinity)
-//                    .padding()
-//                    .foregroundColor(.white)
-//                    .background(Color.init(hex: "ECBEB4"))
-//                    .cornerRadius(40)
-//                    .padding(.horizontal, 40)
-//            })
-//            .frame(minWidth: 0, maxWidth: .infinity)
-//            .padding()
-//            .foregroundColor(.white)
-//            .background(Color.init(hex: "ECBEB4"))
-//            .cornerRadius(40)
-//            .padding(.horizontal, 40)
-//            NavigationLink(destination: MainView(), isActive: $viewModel.registrationComplete) { EmptyView() }
-//        }
 }
 
 #if DEBUG

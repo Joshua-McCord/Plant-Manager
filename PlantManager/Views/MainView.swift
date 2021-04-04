@@ -10,47 +10,44 @@ import SwiftUI
 
 struct MainView: View {
     @ObservedObject var roomVM = RoomViewModel()
+    @State private var isPlantSearchShown = false
     
     private var gridItemLayout = [GridItem(.flexible()), GridItem(.flexible())]
 
     var body: some View {
         
         let plants = roomVM.currPlants
-            ZStack {
-                VStack {
-                    Text("Bedroom")
-                        .font(Font.custom("Futura-Medium", size: 64.0))
-                        .foregroundColor(.black)
-                    ScrollView {
-                        LazyVGrid(columns: gridItemLayout, spacing: 20) {
-                            ForEach(plants, id: \.self) { plant in
-                                NavigationLink(destination: DetailView(plant: plant)) {
-                                    PlantCard(plant: plant)
-                                }
-                            }
+        VStack {
+            ToolbarView(title: "Bedroom")
+                .padding(.top)
+            ScrollView {
+                LazyVGrid(columns: gridItemLayout, spacing: 20) {
+                    ForEach(plants, id: \.self) { plant in
+                        NavigationLink(destination: DetailView(plant: plant)) {
+                            PlantCard(plant: plant)
                         }
                     }
-                    
-                    Spacer()
-                    NavigationLink(destination: PlantSearchView()) {
-                        Text("New Plant")
-                            .fontWeight(.semibold)
-                            .font(.title)
-                            
-                            .frame(minWidth: 0, maxWidth: .infinity)
-                            .padding()
-                            .foregroundColor(.white)
-                            .background(Color.init(hex: "ECBEB4"))
-                            .cornerRadius(40)
-                            .padding(.horizontal, 40)
-                    }
                 }
-            }.onAppear(perform: {
-                roomVM.getData()
-            })
+            }.padding(.horizontal)
+            
+            Spacer()
+            Button("New Plant") {
+                self.isPlantSearchShown = true
+            }
+                .buttonStyle(LongGreenButton())
+            
+            NavigationLink(
+                destination: PlantSearchView(),
+                isActive: $isPlantSearchShown) { EmptyView()}
+
+        }.onAppear(perform: {
+            roomVM.getData()
+        })
+        .navigationBarTitle("")
+        .navigationBarHidden(true)
     }
-        
 }
+
 
 #if DEBUG
 struct MainPreview: PreviewProvider {
