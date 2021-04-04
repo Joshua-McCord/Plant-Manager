@@ -8,13 +8,13 @@
 import Foundation
 import Alamofire
 
-class LogInViewModel: ObservableObject{
+class LogInViewModel: ObservableObject {
     
     var user = User.sharedInstance
     
-    @Published var username:String? = nil
-    @Published var password:String? = nil
-    @Published var isValid:Bool = false
+    @Published var username: String? = nil
+    @Published var password: String? = nil
+    @Published var isValid: Bool = false
     
     func attemptLogIn() {
         struct Login: Encodable {

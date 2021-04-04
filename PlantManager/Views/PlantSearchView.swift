@@ -76,6 +76,3 @@ struct PlantSearchView: View {
         }
     }
 }
-
-
-

@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "3fcb3884bddd23e58545e1ce5b74cd6b.jpg",
+      "filename" : "3fcb3884bddd23e58545e1ce5b74cd6b.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -17,5 +17,8 @@
   "info" : {
     "author" : "xcode",
     "version" : 1
+  },
+  "properties" : {
+    "preserves-vector-representation" : true
   }
 }
