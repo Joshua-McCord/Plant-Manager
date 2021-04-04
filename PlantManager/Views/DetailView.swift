@@ -18,7 +18,7 @@ struct DetailView: View {
     
     var body: some View {
         
-        VStack{
+        VStack {
             Image("golden-pothos")
                 .resizable()
                 .aspectRatio(contentMode: .fill)
@@ -28,7 +28,7 @@ struct DetailView: View {
                 
             ZStack {
                 Rectangle()
-                    .fill(Color.init(hex: "ECBEB4"))
+                    .fill(Color("Primary"))
                     .frame(width: UIScreen.screenWidth, height: UIScreen.screenHeight/1.5, alignment: .bottom)
                     .cornerRadius(64)
                     .shadow(color: .black, radius: 10, x: 0.0, y: 10)
@@ -36,7 +36,7 @@ struct DetailView: View {
                 Text(detailViewModel.getPlantName())
                     .font(Font.custom("Futura-Medium", size: 64.0))
                     .foregroundColor(.black)
-                    .offset(x: 0, y: -250)
+                    .offset(x: 0, y: -200)
                     
             }.offset(x: 0, y: -10)
         }.modifier(CardModifier())
@@ -53,10 +53,10 @@ extension UIScreen{
     static let screenSize = UIScreen.main.bounds.size
 }
 
-
+#if DEBUG
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         DetailView(plant: Plant(uid: "uid", name: "name", waterAt: "10", treflePlantId: "123"))
     }
 }
-
+#endif
