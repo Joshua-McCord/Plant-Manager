@@ -18,61 +18,59 @@ struct PlantSearchView: View {
     
     var body: some View {
         let searchResults = searchVM.searchList
-        NavigationView {
-            VStack {
-                // Search view
+        VStack {
+            // Search view
+            HStack {
                 HStack {
-                    HStack {
-                        Image(systemName: "magnifyingglass")
-                        
-                        
-                        // When pressing enter, queries the viewmodel to
-                        // search Trefle Database for keyword
-                        TextField("search", text: $searchText, onEditingChanged: { isEditing in
-                            self.showCancelButton = true
-                        }, onCommit: {
-                            searchVM.searchForPlants(plantName: searchText)
-                        }).foregroundColor(.primary)
-                        
-                        Button(action: {
-                            self.searchText = ""
-                        }) {
-                            Image(systemName: "xmark.circle.fill").opacity(searchText == "" ? 0 : 1)
-                        }
-                    }
-                    .padding(EdgeInsets(top: 8, leading: 6, bottom: 8, trailing: 6))
-                    .foregroundColor(.secondary)
-                    .background(Color(.secondarySystemBackground))
-                    .cornerRadius(10.0)
+                    Image(systemName: "magnifyingglass")
                     
-                    if showCancelButton  {
-                        Button("Cancel") {
-                            UIApplication.shared.endEditing(true) // this must be placed before the other commands here
-                            self.searchText = ""
-                            self.showCancelButton = false
-                        }
-                        .foregroundColor(Color(.systemBlue))
+                    
+                    // When pressing enter, queries the viewmodel to
+                    // search Trefle Database for keyword
+                    TextField("search", text: $searchText, onEditingChanged: { isEditing in
+                        self.showCancelButton = true
+                    }, onCommit: {
+                        searchVM.searchForPlants(plantName: searchText)
+                    }).foregroundColor(.primary)
+                    
+                    Button(action: {
+                        self.searchText = ""
+                    }) {
+                        Image(systemName: "xmark.circle.fill").opacity(searchText == "" ? 0 : 1)
                     }
                 }
-                .padding(.horizontal)
-                .navigationBarHidden(showCancelButton)
+                .padding(EdgeInsets(top: 8, leading: 6, bottom: 8, trailing: 6))
+                .foregroundColor(.secondary)
+                .background(Color(.secondarySystemBackground))
+                .cornerRadius(10.0)
                 
-                
-                // Make each plant in search result list clickable
-                // and add it to the users plants.
-                List {
-                    ForEach(searchResults, id:\.self) {
-                        searchResult in //Text(searchResult)
-                        Button(action: {
-                            searchVM.addPlant(plantSearchResult: searchResult)
-                        }) {
-                            Text(searchResult.plantName)
-                        }
+                if showCancelButton  {
+                    Button("Cancel") {
+                        UIApplication.shared.endEditing(true) // this must be placed before the other commands here
+                        self.searchText = ""
+                        self.showCancelButton = false
                     }
+                    .foregroundColor(Color(.systemBlue))
                 }
-                .navigationBarTitle(Text("Search"))
-                .resignKeyboardOnDragGesture()
             }
+            .padding(.horizontal)
+            .navigationBarHidden(showCancelButton)
+            
+            
+            // Make each plant in search result list clickable
+            // and add it to the users plants.
+            List {
+                ForEach(searchResults, id:\.self) {
+                    searchResult in //Text(searchResult)
+                    Button(action: {
+                        searchVM.addPlant(plantSearchResult: searchResult)
+                    }) {
+                        Text(searchResult.plantName)
+                    }
+                }
+            }
+            .navigationBarTitle(Text("Search"))
+            .resignKeyboardOnDragGesture()
         }
     }
 }

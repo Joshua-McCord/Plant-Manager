@@ -10,7 +10,9 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-            AccountView()
+        NavigationView {
+            TitleView()
+        }
     }
 }
 

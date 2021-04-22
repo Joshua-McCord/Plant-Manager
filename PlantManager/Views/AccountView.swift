@@ -139,35 +139,33 @@ struct AccountView: View {
     private var registrationView = RegistrationView()
     
     var body: some View {
-        NavigationView {
-            VStack {
-                ToolbarView(title: "Seedling")
-                    .padding(.top)
-                SegmentedPicker(items: self.items, selection: self.$selection)
-                    .padding(.horizontal, 80)
-                    .padding(.vertical, 20)
-                
-                if selection == 0 {
-                    loginView
-                        .padding(.top, 20)
-                        .padding(.horizontal, 40)
-                } else {
-                    registrationView
-                        .padding(.top, 20)
-                        .padding(.horizontal, 40)
-                }
-                
-                GeometryReader { geometry in
-                    Image("background")
-                        .resizable()
-                        .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
-                        .clipped()
-                }.ignoresSafeArea()
-                .padding(.top, 50)
+        VStack {
+            ToolbarView(title: "Seedling")
+                .padding(.top)
+            SegmentedPicker(items: self.items, selection: self.$selection)
+                .padding(.horizontal, 80)
+                .padding(.vertical, 20)
+            
+            if selection == 0 {
+                loginView
+                    .padding(.top, 20)
+                    .padding(.horizontal, 40)
+            } else {
+                registrationView
+                    .padding(.top, 20)
+                    .padding(.horizontal, 40)
             }
-            .navigationBarTitle("")
-            .navigationBarHidden(true)
+            
+            GeometryReader { geometry in
+                Image("background")
+                    .resizable()
+                    .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
+                    .clipped()
+            }.ignoresSafeArea()
+            .padding(.top, 50)
         }
+        .navigationBarTitle("")
+        .navigationBarHidden(true)
     }
 }
 
