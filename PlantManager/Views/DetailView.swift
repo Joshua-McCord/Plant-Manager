@@ -9,7 +9,9 @@ import Foundation
 import SwiftUI
 
 struct DetailView: View {
-    var detailViewModel: DetailViewModel
+    
+    @ObservedObject var detailViewModel: DetailViewModel
+    
     
     init(plant: Plant) {
         self.detailViewModel = DetailViewModel(plant: plant)
@@ -37,7 +39,14 @@ struct DetailView: View {
                     .font(Font.custom("Futura-Medium", size: 64.0))
                     .foregroundColor(.black)
                     .offset(x: 0, y: -200)
-                    
+                
+                if(detailViewModel.hasBLEDevice) {
+                    Text("Moisture Level: \(detailViewModel.getPlantMoistureLevel())%")
+                        .font(Font.custom("SFProText-Regular", size: 18))
+                        .foregroundColor(.black)
+                        .offset(x: 0, y: 50)
+                }
+                
             }.offset(x: 0, y: -10)
         }.modifier(CardModifier())
         .onAppear(perform: {
