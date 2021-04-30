@@ -131,3 +131,34 @@ struct LongGreenButton: ButtonStyle {
         
     }
 }
+
+struct SmallBackButton: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration
+            .label
+            .padding(10)
+            .font(Font.custom("Futura-bold", size: 12.0))
+            .foregroundColor(.white)
+            .background(
+                Circle()
+                    .fill(Color("Accent"))
+            )
+        
+    }
+}
+
+struct BigBackButton: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration
+            .label
+            .padding(.horizontal)
+            .padding(.vertical, 8)
+            .font(Font.custom("Futura-medium", size: 20.0))
+            .foregroundColor(.black)
+            .background(
+                RoundedRectangle(cornerRadius: 14)
+                    .fill(Color("Primary"))
+            )
+        
+    }
+}

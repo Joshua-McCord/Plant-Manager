@@ -10,49 +10,58 @@ import SwiftUI
 
 struct DetailView: View {
     
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @ObservedObject var detailViewModel: DetailViewModel
-    
     
     init(plant: Plant) {
         self.detailViewModel = DetailViewModel(plant: plant)
     }
     
-    
     var body: some View {
-        
-        VStack {
-            Image("golden-pothos")
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: UIScreen.screenWidth, height: 450, alignment: .top)
-                .clipShape(Rectangle())
-                .cornerRadius(14).offset(x: 0, y: 60)
-                
-            ZStack {
-                Rectangle()
-                    .fill(Color("Primary"))
-                    .frame(width: UIScreen.screenWidth, height: UIScreen.screenHeight/1.5, alignment: .bottom)
-                    .cornerRadius(64)
-                    .shadow(color: .black, radius: 10, x: 0.0, y: 10)
+        ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)){
+            VStack {
+                Image("golden-pothos")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: UIScreen.screenWidth, height: 450, alignment: .top)
+                    .clipShape(Rectangle())
+                    .cornerRadius(14).offset(x: 0, y: 60)
                     
-                Text(detailViewModel.getPlantName())
-                    .font(Font.custom("Futura-Medium", size: 64.0))
-                    .foregroundColor(.black)
-                    .offset(x: 0, y: -200)
-                
-                if(detailViewModel.getHasConnectedDevice()) {
-                    Text("Moisture Level: \(detailViewModel.getPlantMoistureLevel())%")
-                        .font(Font.custom("SFProText-Regular", size: 18))
+                ZStack {
+                    Rectangle()
+                        .fill(Color("Primary"))
+                        .frame(width: UIScreen.screenWidth, height: UIScreen.screenHeight/1.5, alignment: .bottom)
+                        .cornerRadius(64)
+                        .shadow(color: .black, radius: 10, x: 0.0, y: 10)
+                        
+                    Text(detailViewModel.getPlantName())
+                        .font(Font.custom("Futura-Medium", size: 64.0))
                         .foregroundColor(.black)
-                        .offset(x: 0, y: 50)
+                        .offset(x: 0, y: -200)
+                    
+                    if(detailViewModel.getHasConnectedDevice()) {
+                        Text("Moisture Level: \(detailViewModel.getPlantMoistureLevel())%")
+                            .font(Font.custom("SFProText-Regular", size: 18))
+                            .foregroundColor(.black)
+                            .offset(x: 0, y: 50)
+                    }
+                    
                 }
-                
-            }.offset(x: 0, y: -10)
-        }.modifier(CardModifier())
-        .onAppear(perform: {
-            detailViewModel.getPlantInformation()
-        })
-        
+                .offset(x: 0, y: -10)
+            }
+            .modifier(CardModifier())
+            .onAppear(perform: {
+                detailViewModel.getPlantInformation()
+            })
+            Button("Back") {
+                presentationMode.wrappedValue.dismiss()
+            }
+            .buttonStyle(BigBackButton())
+            .offset(y: 120)
+            .padding(25)
+        }
+        .navigationBarTitle("")
+        .navigationBarHidden(true)
     }
 }
 

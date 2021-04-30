@@ -25,13 +25,7 @@ struct PlantSearchView: View {
                 Button("<") {
                     presentationMode.wrappedValue.dismiss()
                 }
-                .padding(10)
-                .font(Font.custom("Futura-bold", size: 12.0))
-                .foregroundColor(.white)
-                .background(
-                    Circle()
-                        .fill(Color("Accent"))
-                )
+                .buttonStyle(SmallBackButton())
                 .offset(x: -145.0, y: 20.0)
             }
             // Search view
@@ -63,7 +57,7 @@ struct PlantSearchView: View {
                 }
                 .padding(.leading)
                 
-                if showGoButton && self.searchText != "" {
+                if self.showGoButton && self.searchText != "" {
                     Button("Go") {
                         UIApplication.shared.endEditing(true) // this must be placed before the other commands here
                         
@@ -81,7 +75,7 @@ struct PlantSearchView: View {
             }
             .padding(.top, 30)
             .padding(.horizontal, 20)
-            .navigationBarHidden(showGoButton)
+            .navigationBarHidden(self.showGoButton)
             
             // Make each plant in search result list clickable
             // and add it to the users plants.
