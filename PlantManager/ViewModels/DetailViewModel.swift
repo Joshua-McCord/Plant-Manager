@@ -58,8 +58,6 @@ class DetailViewModel : NSObject, ObservableObject, CBPeripheralDelegate, CBCent
         return self.plantMoistureLevel
     }
     
-    
-    
     func getPlantInformation() {
         let treflePlantId = plant.treflePlantId
         let par = ["q" : treflePlantId]
@@ -101,7 +99,6 @@ class DetailViewModel : NSObject, ObservableObject, CBPeripheralDelegate, CBCent
     
     func parsePlantInformation(json: JSON) {
         print(json);
-        
     }
     
     // If we're powered on, start scanning
@@ -206,10 +203,8 @@ class DetailViewModel : NSObject, ObservableObject, CBPeripheralDelegate, CBCent
         for i in byteArray {
             val.append((Character(Unicode.Scalar(i))))
         }
-        
         return val
     }
-    
 }
     
 

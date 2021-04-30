@@ -55,7 +55,6 @@ class RoomViewModel : ObservableObject {
             }
     }
     
-    
     func parseJSON(json: JSON) {
         if json["data"].array!.count != 0 {
             for index in 0...(json["data"].array!.count - 1) {
