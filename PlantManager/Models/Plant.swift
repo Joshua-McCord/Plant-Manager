@@ -12,11 +12,13 @@ struct Plant: Hashable, Decodable, Encodable {
     var name: String?
     var waterAt: String?
     var treflePlantId: String?
-    init(uid: String?, name: String?, waterAt: String?, treflePlantId: String?){
+    var hasConnectedDevice: String?
+    init(uid: String?, name: String?, waterAt: String?, treflePlantId: String?, hasConnectedDevice: String?){
         self.uid = uid
         self.name = name
         self.waterAt = waterAt
         self.treflePlantId = treflePlantId
+        self.hasConnectedDevice = hasConnectedDevice
     }
     
 }
@@ -27,6 +29,7 @@ struct PlantPost: Encodable {
     let waterAt: String
     let roomId: String
     let treflePlantId: String
+    let hasConnectedDevice: String
 }
 
 

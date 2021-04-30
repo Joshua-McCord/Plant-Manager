@@ -27,16 +27,12 @@ class DetailViewModel : NSObject, ObservableObject, CBPeripheralDelegate, CBCent
     private var peripheral: CBPeripheral!
     
     let plant: Plant
-    var hasBLEDevice = false
     
     
     init(plant: Plant) {
         self.plant = plant;
-        if(self.plant.name == "Ivy") {
-            hasBLEDevice = true
-        }
         super.init()
-        if(self.hasBLEDevice) {
+        if(plant.hasConnectedDevice == "true") {
             centralManager = CBCentralManager(delegate: self, queue: nil)
         }
     }
@@ -47,6 +43,15 @@ class DetailViewModel : NSObject, ObservableObject, CBPeripheralDelegate, CBCent
     
     func getPlantWaterAt() -> String {
         return plant.waterAt!
+    }
+    
+    func getHasConnectedDevice() -> Bool {
+        if(self.plant.hasConnectedDevice != nil) {
+            if(self.plant.hasConnectedDevice == "true") {
+                return true
+            }
+        }
+        return false
     }
     
     func getPlantMoistureLevel() -> String {

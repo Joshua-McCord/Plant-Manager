@@ -77,7 +77,8 @@ class PlantSearchViewModel : ObservableObject {
         let post = PlantPost(name: plantSearchResult.plantName,
                              waterAt: "1:00",
                              roomId: "123" ,
-                             treflePlantId: plantSearchResult.treflePlantID)
+                             treflePlantId: plantSearchResult.treflePlantID,
+                             hasConnectedDevice: "false")
         
         let encoder = JSONEncoder()
         encoder.outputFormatting = .prettyPrinted

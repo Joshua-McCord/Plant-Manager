@@ -40,7 +40,7 @@ struct DetailView: View {
                     .foregroundColor(.black)
                     .offset(x: 0, y: -200)
                 
-                if(detailViewModel.hasBLEDevice) {
+                if(detailViewModel.getHasConnectedDevice()) {
                     Text("Moisture Level: \(detailViewModel.getPlantMoistureLevel())%")
                         .font(Font.custom("SFProText-Regular", size: 18))
                         .foregroundColor(.black)
@@ -65,7 +65,7 @@ extension UIScreen{
 #if DEBUG
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailView(plant: Plant(uid: "uid", name: "name", waterAt: "10", treflePlantId: "123"))
+        DetailView(plant: Plant(uid: "uid", name: "name", waterAt: "10", treflePlantId: "123", hasConnectedDevice: "false"))
     }
 }
 #endif

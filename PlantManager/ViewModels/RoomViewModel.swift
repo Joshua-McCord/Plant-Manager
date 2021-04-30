@@ -64,7 +64,8 @@ class RoomViewModel : ObservableObject {
                     uid: json["data"][index]["data"]["uid"].string,
                     name: json["data"][index]["data"]["name"].string,
                     waterAt: json["data"][index]["data"]["waterAt"].string,
-                    treflePlantId: json["data"][index]["data"]["treflePlantId"].string
+                    treflePlantId: json["data"][index]["data"]["treflePlantId"].string,
+                    hasConnectedDevice: json["data"][index]["data"]["hasConnectedDevice"].string
                 )
                 currPlants.append(plant)
             }
