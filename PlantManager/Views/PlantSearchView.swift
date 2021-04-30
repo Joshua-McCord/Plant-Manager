@@ -7,11 +7,11 @@
 
 import Foundation
 import SwiftUI
-import Combine
 
 struct PlantSearchView: View {
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State private var searchText = ""
-    @State private var showCancelButton: Bool = false
+    @State private var showGoButton: Bool = false
     
     @ObservedObject var searchVM = PlantSearchViewModel()
     
@@ -19,43 +19,69 @@ struct PlantSearchView: View {
     var body: some View {
         let searchResults = searchVM.searchList
         VStack {
+            ZStack {
+                ToolbarView(title: "Search")
+                    .padding(.top)
+                Button("<") {
+                    presentationMode.wrappedValue.dismiss()
+                }
+                .padding(10)
+                .font(Font.custom("Futura-bold", size: 12.0))
+                .foregroundColor(.white)
+                .background(
+                    Circle()
+                        .fill(Color("Accent"))
+                )
+                .offset(x: -145.0, y: 20.0)
+            }
             // Search view
             HStack {
-                HStack {
-                    Image(systemName: "magnifyingglass")
-                    
-                    
-                    // When pressing enter, queries the viewmodel to
-                    // search Trefle Database for keyword
-                    TextField("search", text: $searchText, onEditingChanged: { isEditing in
-                        self.showCancelButton = true
-                    }, onCommit: {
-                        searchVM.searchForPlants(plantName: searchText)
-                    }).foregroundColor(.primary)
-                    
-                    Button(action: {
-                        self.searchText = ""
-                    }) {
-                        Image(systemName: "xmark.circle.fill").opacity(searchText == "" ? 0 : 1)
+                VStack {
+                    HStack {
+                        Image("search-flower")
+                            .scaleEffect(1.5)
+
+                        TextField("Enter plant name...", text: $searchText, onEditingChanged: { isEditing in
+                                self.showGoButton = true
+                        }, onCommit: {
+                            searchVM.searchForPlants(plantName: searchText)
+                        })
+                        .disableAutocorrection(true)
+                        .autocapitalization(.none)
+                        .padding(.leading, 10)
+                        
+                        Button(action: {
+                            self.searchText = ""
+                        }) {
+                            Image(systemName: "xmark.circle.fill").opacity(searchText == "" ? 0 : 1)
+                                .foregroundColor(.secondary)
+                        }
                     }
+                    Divider()
+                        .background(Color.black)
+                        .padding(.vertical, 2)
                 }
-                .padding(EdgeInsets(top: 8, leading: 6, bottom: 8, trailing: 6))
-                .foregroundColor(.secondary)
-                .background(Color(.secondarySystemBackground))
-                .cornerRadius(10.0)
+                .padding(.leading)
                 
-                if showCancelButton  {
-                    Button("Cancel") {
+                if showGoButton && self.searchText != "" {
+                    Button("Go") {
                         UIApplication.shared.endEditing(true) // this must be placed before the other commands here
-                        self.searchText = ""
-                        self.showCancelButton = false
+                        
+                        searchVM.searchForPlants(plantName: searchText)
                     }
-                    .foregroundColor(Color(.systemBlue))
+                    .buttonStyle(LongGreenButton())
+                    .padding(.horizontal)
+                    
+                } else {
+                    Button("Go"){}
+                        .buttonStyle(LongGreenButton())
+                        .padding(.horizontal)
+                        .opacity(0.5)
                 }
             }
-            .padding(.horizontal)
-            .navigationBarHidden(showCancelButton)
-            
+            .padding(.top, 30)
+            .padding(.horizontal, 20)
+            .navigationBarHidden(showGoButton)
             
             // Make each plant in search result list clickable
             // and add it to the users plants.
@@ -69,8 +95,19 @@ struct PlantSearchView: View {
                     }
                 }
             }
-            .navigationBarTitle(Text("Search"))
-            .resignKeyboardOnDragGesture()
+            .padding(.horizontal)
+            .padding(.trailing)
         }
+        .navigationBarTitle("")
+        .navigationBarHidden(true)
+        .resignKeyboardOnDragGesture()
     }
 }
+
+#if DEBUG
+struct PlantSearchPreview: PreviewProvider {
+    static var previews: some View {
+        PlantSearchView()
+    }
+}
+#endif
