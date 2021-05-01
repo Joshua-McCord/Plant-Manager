@@ -12,9 +12,13 @@ struct PlantSearchView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State private var searchText = ""
     @State private var showGoButton: Bool = false
-    
     @ObservedObject var searchVM = PlantSearchViewModel()
     
+    private var room: Room
+    
+    init(room: Room) {
+        self.room = room
+    }
     
     var body: some View {
         let searchResults = searchVM.searchList
@@ -82,7 +86,7 @@ struct PlantSearchView: View {
                 ForEach(searchResults, id:\.self) {
                     searchResult in //Text(searchResult)
                     Button(action: {
-                        searchVM.addPlant(plantSearchResult: searchResult)
+                        searchVM.addPlant(plantSearchResult: searchResult, currRoomId: room.rid!)
                     }) {
                         Text(searchResult.plantName)
                     }
@@ -96,11 +100,3 @@ struct PlantSearchView: View {
         .resignKeyboardOnDragGesture()
     }
 }
-
-#if DEBUG
-struct PlantSearchPreview: PreviewProvider {
-    static var previews: some View {
-        PlantSearchView()
-    }
-}
-#endif

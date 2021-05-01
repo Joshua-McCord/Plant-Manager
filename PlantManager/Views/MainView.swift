@@ -18,7 +18,7 @@ struct MainView: View {
         let rooms = roomVM.currRooms
         VStack {
             ToolbarView(title: "Spaces")
-                .padding(.top)
+                .padding(.vertical)
             ScrollView {
                 LazyVGrid(columns: gridItemLayout, spacing: 20) {
                     ForEach(rooms, id: \.self) { room in
@@ -28,16 +28,16 @@ struct MainView: View {
                     }
                 }
             }.padding(.horizontal)
-            
             Spacer()
+            
             Button("New Room") {
-                self.showNewRoom.toggle()
+                self.showNewRoom = true
             }
                 .buttonStyle(LongGreenButton())
-                .sheet(isPresented: $showNewRoom) {
-                    NewRoomView()
-                }
             
+            NavigationLink(
+                destination: NewRoomView(),
+                isActive: $showNewRoom) { EmptyView()}
         }.onAppear(perform: {
             roomVM.getData()
         })

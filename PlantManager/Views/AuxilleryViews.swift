@@ -52,15 +52,17 @@ struct RoomCard: View {
         ZStack {
             Rectangle()
                 .fill(Color("Primary"))
-                .frame(width: 150, height: 170, alignment: .bottom)
+                .frame(width: 150, height: 170)
                 .cornerRadius(14)
             
+            Image(iconDict[room.roomIconId ?? 0] ?? "chair")
+                .padding(.bottom, 10)
             VStack {
-                Image(iconDict[room.roomIconId ?? 0] ?? "chair") // check on size
-                
+                Spacer()
                 Text(room.name ?? "Room")
                     .font(Font.custom("SFProText-Regular", size: 18.0))
                     .foregroundColor(.black)
+                    .padding()
             }
         }
         .modifier(CardModifier())

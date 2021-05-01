@@ -68,7 +68,7 @@ class PlantSearchViewModel : ObservableObject {
     }
     
     // Add plant to user's database
-    func addPlant(plantSearchResult: PlantSearchResult)  {
+    func addPlant(plantSearchResult: PlantSearchResult, currRoomId: String)  {
         let tmpToken: String? = User.sharedInstance.idToken
         guard let token = tmpToken else {return }
         let url = URL(string: "https://us-central1-house-plants-api.cloudfunctions.net/webApi/api/v1/plants")!
@@ -76,7 +76,7 @@ class PlantSearchViewModel : ObservableObject {
         // prepare json data
         let post = PlantPost(name: plantSearchResult.plantName,
                              waterAt: "1:00",
-                             roomId: "123" ,
+                             roomId: currRoomId,
                              treflePlantId: plantSearchResult.treflePlantID,
                              hasConnectedDevice: "false")
         
