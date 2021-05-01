@@ -70,11 +70,3 @@ extension UIScreen{
     static let screenHeight = UIScreen.main.bounds.size.height
     static let screenSize = UIScreen.main.bounds.size
 }
-
-#if DEBUG
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        DetailView(plant: Plant(uid: "uid", name: "name", waterAt: "10", treflePlantId: "123", hasConnectedDevice: "false"))
-    }
-}
-#endif

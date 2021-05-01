@@ -1,45 +1,43 @@
 //
-//  MainView.swift
+//  ChooseRoomView.swift
 //  PlantManager
 //
-//  Created by Joshua Cole McCord on 2/4/21.
+//  Created by Daniella Ruzinov on 4/30/21.
 //
 
-import Foundation
 import SwiftUI
 
 struct MainView: View {
     @ObservedObject var roomVM = RoomViewModel()
-    @State private var isPlantSearchShown = false
+    @State private var showNewRoom = false
     
     private var gridItemLayout = [GridItem(.flexible()), GridItem(.flexible())]
 
     var body: some View {
         
-        let plants = roomVM.currPlants
+        let rooms = roomVM.currRooms
         VStack {
-            ToolbarView(title: "Bedroom")
+            ToolbarView(title: "Spaces")
                 .padding(.top)
             ScrollView {
                 LazyVGrid(columns: gridItemLayout, spacing: 20) {
-                    ForEach(plants, id: \.self) { plant in
-                        NavigationLink(destination: DetailView(plant: plant)) {
-                            PlantCard(plant: plant)
+                    ForEach(rooms, id: \.self) { room in
+                        NavigationLink(destination: PlantView(room: room)) {
+                            RoomCard(room: room)
                         }
                     }
                 }
             }.padding(.horizontal)
             
             Spacer()
-            Button("New Plant") {
-                self.isPlantSearchShown = true
+            Button("New Room") {
+                self.showNewRoom.toggle()
             }
                 .buttonStyle(LongGreenButton())
+                .sheet(isPresented: $showNewRoom) {
+                    NewRoomView()
+                }
             
-            NavigationLink(
-                destination: PlantSearchView(),
-                isActive: $isPlantSearchShown) { EmptyView()}
-
         }.onAppear(perform: {
             roomVM.getData()
         })
@@ -47,12 +45,3 @@ struct MainView: View {
         .navigationBarHidden(true)
     }
 }
-
-
-#if DEBUG
-struct MainPreview: PreviewProvider {
-    static var previews: some View {
-        MainView()
-    }
-}
-#endif

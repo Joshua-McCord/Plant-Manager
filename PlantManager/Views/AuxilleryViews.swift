@@ -23,7 +23,7 @@ struct PlantCard: View {
                 
                 ZStack {
                     Rectangle()
-                        .fill(Color.init(hex: "ECBEB4"))
+                        .fill(Color("Primary"))
                         .frame(width: 150, height: 65, alignment: .bottom)
                         .cornerRadius(14)
                     
@@ -40,6 +40,32 @@ struct PlantCard: View {
     }
 }
 
+struct RoomCard: View {
+    private var room: Room
+    private var iconDict = [0: "chair", 1: "bathtub", 2: "bed", 3: "dining", 4: "living-room", 5: "tv"]
+    
+    init(room: Room) {
+        self.room = room
+    }
+    
+    var body: some View {
+        ZStack {
+            Rectangle()
+                .fill(Color("Primary"))
+                .frame(width: 150, height: 170, alignment: .bottom)
+                .cornerRadius(14)
+            
+            VStack {
+                Image(iconDict[room.roomIconId ?? 0] ?? "chair") // check on size
+                
+                Text(room.name ?? "Room")
+                    .font(Font.custom("SFProText-Regular", size: 18.0))
+                    .foregroundColor(.black)
+            }
+        }
+        .modifier(CardModifier())
+    }
+}
 
 struct CardModifier: ViewModifier {
     func body(content: Content) -> some View {
@@ -104,10 +130,14 @@ extension View {
 struct ToolbarView: View {
     var title: String
     
+    init(title: String) {
+        self.title = title
+    }
+    
     var body: some View {
         VStack {
-            Text(title)
-                .font(Font.custom("Futura-Medium", size: 64.0))
+            Text(self.title)
+                .font(Font.custom("Futura-Medium", size: self.title.count > 9 ? 48.0 : 64.0))
                 .padding(1)
             Capsule()
                 .fill(Color("Primary"))

@@ -2,7 +2,7 @@
 //  RoomViewModel.swift
 //  PlantManager
 //
-//  Created by Joshua Cole McCord on 2/4/21.
+//  Created by Daniella Ruzinov on 4/30/21.
 //
 
 import Foundation
@@ -12,11 +12,11 @@ import SwiftyJSON
 
 class RoomViewModel : ObservableObject {
     
-    @Published var currPlants: [Plant] = []
+    @Published var currRooms: [Room] = []
     
     
-    func getCurrPlants() -> [Plant] {
-        return currPlants
+    func getcurrRooms() -> [Room] {
+        return currRooms
     }
     
     func getData() {
@@ -27,7 +27,7 @@ class RoomViewModel : ObservableObject {
             "Content-Type":"application/json"
         ]
         // Use AlamoFire to fire request
-        AF.request("https://us-central1-house-plants-api.cloudfunctions.net/webApi/api/v1/plants",
+        AF.request("https://us-central1-house-plants-api.cloudfunctions.net/webApi/api/v1/rooms",
                    method: .get,
                    parameters: nil,
                    encoding: URLEncoding.httpBody,
@@ -44,7 +44,7 @@ class RoomViewModel : ObservableObject {
                 }
                 switch response.result {
                     case .success(let value) :
-                        self.currPlants.removeAll()
+                        self.currRooms.removeAll()
                         //print(JSON(value))
                         let json = JSON(value)
                         self.parseJSON(json: json)
@@ -59,15 +59,49 @@ class RoomViewModel : ObservableObject {
         if json["data"].array!.count != 0 {
             for index in 0...(json["data"].array!.count - 1) {
                 
-                let plant: Plant = Plant(
-                    uid: json["data"][index]["data"]["uid"].string,
+                let room: Room = Room(
+                    rid: json["data"][index]["id"].string,
                     name: json["data"][index]["data"]["name"].string,
-                    waterAt: json["data"][index]["data"]["waterAt"].string,
-                    treflePlantId: json["data"][index]["data"]["treflePlantId"].string,
-                    hasConnectedDevice: json["data"][index]["data"]["hasConnectedDevice"].string
+                    roomIconId: json["data"][index]["data"]["roomIconId"].int
                 )
-                currPlants.append(plant)
+                currRooms.append(room)
             }
         }
+    }
+    
+    func addRoom(roomName: String?, roomIcon: Int?)  {
+        let tmpToken: String? = User.sharedInstance.idToken
+        guard let token = tmpToken else {return }
+        let url = URL(string: "https://us-central1-house-plants-api.cloudfunctions.net/webApi/api/v1/rooms")!
+        
+        // prepare json data
+        let post = RoomPost(name: roomName ?? "New Room", roomIconId: roomIcon ?? 0)
+        
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .prettyPrinted
+        let data = try! encoder.encode(post)
+        print(String(data: data, encoding: .utf8)!)
+        
+        // create post request
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        
+        // insert json data to the request
+        request.httpBody = data
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.setValue( "Bearer \(token)", forHTTPHeaderField: "Authorization")
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let responseJSON = responseJSON as? [String: Any] {
+                debugPrint(responseJSON)
+            }
+        }
+        task.resume()
     }
 }

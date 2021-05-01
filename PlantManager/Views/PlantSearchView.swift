@@ -40,7 +40,6 @@ struct PlantSearchView: View {
                         }, onCommit: {
                             searchVM.searchForPlants(plantName: searchText)
                         })
-                        .disableAutocorrection(true)
                         .autocapitalization(.none)
                         .padding(.leading, 10)
                         
